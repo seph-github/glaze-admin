@@ -1,5 +1,3 @@
-import { LogIn } from "lucide-react";
-
 export default async function Home() {
 
   console.log('Home page')
@@ -12,8 +10,8 @@ export default async function Home() {
         </h1>
         <p className="text-lg text-muted-foreground max-w-prose">
           Glaze is your ultimate platform for managing and exploring content. 
-          Whether you're here to collaborate, create, or simply stay organized, 
-          we've got you covered.
+          Whether you&#39;re here to collaborate, create, or simply stay organized, 
+          we&#39;ve got you covered.
         </p>
         <div className="flex gap-4 mt-6">
           <a
