@@ -2,14 +2,7 @@
 
 // import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { usePathname } from "next/navigation";
-import { DashboardSidebar } from "@/components/Dashboard/Sidebar";
-import DashboardHeader from "@/components/Dashboard/Header";
 import "./globals.css";
-import DashboardFooter from "@/components/Dashboard/Footer";
-import { useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
-import router from "next/router";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
