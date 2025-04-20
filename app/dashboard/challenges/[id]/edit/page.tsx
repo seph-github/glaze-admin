@@ -3,18 +3,17 @@ import { createClient } from '@/lib/supabase/server';
 import { Challenge } from '@/types/interfaces/Challenge';
 import { notFound } from 'next/navigation';
 
-interface EditChallengePageProps {
-  params: { id: string };
-}
-
 export default async function EditChallengePage({
   params,
-}: EditChallengePageProps) {
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const supabase = await createClient();
   const { data: challenge } = await supabase
     .from('challenges')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (!challenge) return notFound();
