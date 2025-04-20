@@ -3,11 +3,13 @@ import { createClient } from '@/lib/supabase/server';
 import { Challenge } from '@/types/interfaces/Challenge';
 import { notFound } from 'next/navigation';
 
+interface EditChallengePageProps {
+  params: { id: string };
+}
+
 export default async function EditChallengePage({
   params,
-}: {
-  params: { id: string };
-}) {
+}: EditChallengePageProps) {
   const supabase = await createClient();
   const { data: challenge } = await supabase
     .from('challenges')
