@@ -1,26 +1,26 @@
 'use client';
 
-import { usePathname } from "next/navigation";
-import { Button } from "../ui/button";
-import { Menu } from "lucide-react";
-import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
-import AvatarDropdown from "../Dashboard/AvatarDropdown";
+import { Button } from '../ui/button';
+import { Menu } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import AvatarDropdown from './AvatarDropdown';
 
 export default function DashboardHeader() {
-  const pathname = usePathname();
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProfileImage = async () => {
       const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
       if (user) {
         const { data: profile, error } = await supabase
-          .from("profiles")
-          .select("profile_image_url")
-          .eq("id", user.id)
+          .from('profiles')
+          .select('profile_image_url')
+          .eq('id', user.id)
           .single();
 
         if (!error && profile?.profile_image_url) {
@@ -39,7 +39,7 @@ export default function DashboardHeader() {
           <Menu className="h-5 w-5" />
         </Button>
         <h1 className="text-lg font-semibold capitalize text-foreground">
-          {pathname.replace('/', '') || 'Dashboard'}
+          {/* {pathname.replace('/', '') || 'Dashboard'} */}
         </h1>
       </div>
 

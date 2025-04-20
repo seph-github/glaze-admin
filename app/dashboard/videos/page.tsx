@@ -1,3 +1,3 @@
 export default function VideosPage() {
-    return <h1>videos</h1>
+  return <h1>videos</h1>;
 }

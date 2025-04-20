@@ -1,16 +1,27 @@
 'use client';
 
-import { Home, Users, Video, Trophy } from 'lucide-react';
+import {
+  Users,
+  Video,
+  Trophy,
+  Store,
+  ShieldAlert,
+  ChartSpline,
+  LayoutDashboardIcon,
+} from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import  Image  from 'next/image';
+import Image from 'next/image';
 
 const navItems = [
-  { label: 'Home', href: '/dashboard/home', icon: Home },
-  { label: 'Users', href: '/dashboard/users', icon: Users },
+  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboardIcon },
+  { label: 'Recruiters', href: '/dashboard/recruiters', icon: Users },
+  { label: 'Shop', href: '/dashboard/shop', icon: Store },
   { label: 'Videos', href: '/dashboard/videos', icon: Video },
   { label: 'Challenges', href: '/dashboard/challenges', icon: Trophy },
+  { label: 'Analytics', href: '/dashboard/analytics', icon: ChartSpline },
+  { label: 'Moderation', href: '/dashboard/moderation', icon: ShieldAlert },
 ];
 
 export function DashboardSidebar() {
@@ -21,11 +32,11 @@ export function DashboardSidebar() {
       <div className="h-16 flex items-center justify-center border-b">
         {/* <img src="../../public/glaze_icon_logo.png" /> */}
         <Image
-        src="/glaze_icon_logo.png"
-        alt='Glaze Logo'
-        width={100}
-        height={35}
-         />
+          src="/glaze_icon_logo.png"
+          alt="Glaze Logo"
+          width={100}
+          height={35}
+        />
         {/* <span className="text-lg font-bold">🍩 Glaze Admin</span> */}
       </div>
       <nav className="flex flex-col gap-1 p-4">
@@ -38,7 +49,9 @@ export function DashboardSidebar() {
               href={href}
               className={cn(
                 'flex items-center gap-3 px-4 py-2 rounded-md transition hover:bg-muted',
-                isActive ? 'bg-muted font-semibold text-primary' : 'text-muted-foreground'
+                isActive
+                  ? 'bg-muted font-semibold text-primary'
+                  : 'text-muted-foreground'
               )}
             >
               <Icon className="w-5 h-5" />
