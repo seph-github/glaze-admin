@@ -1,6 +1,7 @@
-import DashboardFooter from '@/components/dashboard/Footer';
-import DashboardHeader from '@/components/dashboard/Header';
-import { DashboardSidebar } from '@/components/dashboard/Sidebar';
+import DashboardFooter from "@/components/Dashboard/Footer";
+import DashboardHeader from "@/components/Dashboard/Header";
+import { DashboardSidebar } from "@/components/Dashboard/Sidebar";
+
 
 export default function Layout({
   children,
