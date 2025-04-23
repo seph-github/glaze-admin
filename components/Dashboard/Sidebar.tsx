@@ -60,9 +60,6 @@ export function DashboardSidebar() {
           );
         })}
       </nav>
-      {/* <div className="p-4 border-t">
-        <LogoutButton />
-      </div> */}
     </aside>
   );
 }
