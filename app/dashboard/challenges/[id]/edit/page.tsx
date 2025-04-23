@@ -1,4 +1,4 @@
-import EditChallengeForm from '@/components/Challenges/EditChallengeForm';
+import EditChallengeForm from '@/components/challenges/EditChallengeForm';
 import { createClient } from '@/lib/supabase/server';
 import { Challenge } from '@/types/interfaces/Challenge';
 import { notFound } from 'next/navigation';
