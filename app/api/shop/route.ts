@@ -14,7 +14,9 @@ export async function POST(req: NextRequest) {
       discount_price_cents: body.discount_price_cents,
       quantity: body.quantity,
       is_featured: body.is_featured || false,
-      image_url: body.image_url,
+      donut_ids: body.donut_ids || [],
+      start_at: body.start_at,
+      end_at: body.end_at,
     },
   ]);
 

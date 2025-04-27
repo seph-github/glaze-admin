@@ -35,9 +35,16 @@ export default async function DonutsPage() {
             key={donut.id}
             className="bg-white shadow-md rounded-lg p-4 space-y-4"
           >
+            {/* <img
+              src={donut.image_url}
+              alt={donut.name}
+              className="w-full h-40 object-cover rounded"
+            /> */}
             <Image
               src={donut.image_url}
               alt={donut.name}
+              width={1000}
+              height={1000}
               className="w-full h-40 object-cover rounded"
             />
             <h2 className="text-lg font-semibold text-gray-800">

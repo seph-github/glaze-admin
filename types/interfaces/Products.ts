@@ -5,10 +5,13 @@ export interface Product {
   price_cents: number;
   type: string;
   quantity: number;
-  image_url: string;
+  donut_ids: string[];
   is_active: boolean;
   is_discounted: boolean;
   discount_price_cents: number;
   is_featured: boolean;
   created_at: string;
+  start_at: string;
+  end_at: string;
+  features: string[];
 }

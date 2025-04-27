@@ -19,7 +19,6 @@ export default function EditProductForm({ product }: { product: Product }) {
       : ''
   );
   const [quantity, setQuantity] = useState(product.quantity?.toString() || '0');
-  const [imageUrl, setImageUrl] = useState(product.image_url || '');
   const [isFeatured, setIsFeatured] = useState(product.is_featured || false);
   const [isActive, setIsActive] = useState(product.is_active ?? true);
   const [isDiscounted, setIsDiscounted] = useState(
@@ -39,7 +38,6 @@ export default function EditProductForm({ product }: { product: Product }) {
         ? Math.round(parseFloat(discountPrice) * 100)
         : undefined,
       quantity: Math.round(parseInt(quantity)),
-      image_url: imageUrl,
       is_featured: isFeatured,
       is_active: isActive,
       is_discounted: isDiscounted,
@@ -127,11 +125,6 @@ export default function EditProductForm({ product }: { product: Product }) {
           onChange={(e) => setQuantity(e.target.value)}
         />
       )}
-      <input
-        className="input"
-        value={imageUrl}
-        onChange={(e) => setImageUrl(e.target.value)}
-      />
       {type === 'featured' && (
         <div className="flex items-center gap-2">
           <input
