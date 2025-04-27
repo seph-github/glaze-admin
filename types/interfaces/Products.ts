@@ -1,9 +1,11 @@
+import { ProductType } from '../enums/ProductType';
+
 export interface Product {
   id: string;
   name: string;
   description: string;
   price_cents: number;
-  type: string;
+  type: ProductType;
   quantity: number;
   donut_ids: string[];
   is_active: boolean;

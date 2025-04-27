@@ -1,5 +1,6 @@
 'use client';
 
+import { ProductType } from '@/types/enums/ProductType';
 import { Product } from '@/types/interfaces/Products';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -11,7 +12,7 @@ export default function EditProductForm({ product }: { product: Product }) {
 
   const [name, setName] = useState(product.name);
   const [description, setDescription] = useState(product.description || '');
-  const [type, setType] = useState(product.type);
+  const [type, setType] = useState<ProductType>(product.type);
   const [price, setPrice] = useState((product.price_cents / 100).toString());
   const [discountPrice, setDiscountPrice] = useState(
     product.discount_price_cents
@@ -82,12 +83,12 @@ export default function EditProductForm({ product }: { product: Product }) {
         <select
           className="w-full mt-1 p-2 border rounded"
           value={type}
-          onChange={(e) => setType(e.target.value)}
+          onChange={(e) => setType(e.target.value as ProductType)}
         >
-          <option value="featured">Featured</option>
-          <option value="subscription">Subscription</option>
-          <option value="donut_box">Donut Box</option>
-          <option value="bundle">Bundle</option>
+          <option value={ProductType.Featured}>Featured</option>
+          <option value={ProductType.Subscriptions}>Subscription</option>
+          <option value={ProductType.DonutBox}>Donut Box</option>
+          <option value={ProductType.Bundle}>Bundle</option>
         </select>
       </div>
 

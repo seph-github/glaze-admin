@@ -17,7 +17,7 @@ export default function NewChallengePage() {
   const [status, setStatus] = useState<ChallengeStatus>(ChallengeStatus.active);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, ] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -52,14 +52,14 @@ export default function NewChallengePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-8 space-y-6">
+    <div className="w-full max-w-7xl mx-auto bg-white shadow-md rounded-lg p-8 space-y-6">
       <h1 className="text-3xl font-bold text-gray-800">Create New Challenge</h1>
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label className="block font-medium text-gray-700">Type</label>
           <select
-            className="w-full mt-1 p-2 border rounded"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={type}
             onChange={(e) => setType(e.target.value as ChallengeType)}
           >
@@ -72,7 +72,7 @@ export default function NewChallengePage() {
           <label className="block font-medium text-gray-700">Title</label>
           <input
             type="text"
-            className="w-full mt-1 p-2 border rounded"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -82,7 +82,7 @@ export default function NewChallengePage() {
         <div>
           <label className="block font-medium text-gray-700">Description</label>
           <textarea
-            className="w-full mt-1 p-2 border rounded"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -92,7 +92,7 @@ export default function NewChallengePage() {
           <label className="block font-medium text-gray-700">Prize</label>
           <input
             type="text"
-            className="w-full mt-1 p-2 border rounded"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={prize}
             onChange={(e) => setPrize(e.target.value)}
           />
@@ -105,7 +105,7 @@ export default function NewChallengePage() {
             </label>
             <input
               type="datetime-local"
-              className="w-full mt-1 p-2 border rounded"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
               required
@@ -117,14 +117,14 @@ export default function NewChallengePage() {
           <label className="block font-medium text-gray-700">End Date</label>
           <input
             type="datetime-local"
-            className="w-full mt-1 p-2 border rounded"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
             required
           />
         </div>
 
-        <div>
+        {/* <div>
           <label className="block font-medium text-gray-700">Image URL</label>
           <input
             type="text"
@@ -132,12 +132,12 @@ export default function NewChallengePage() {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
           />
-        </div>
+        </div> */}
 
         <div>
           <label className="block font-medium text-gray-700">Status</label>
           <select
-            className="w-full mt-1 p-2 border rounded"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={status}
             onChange={(e) => setStatus(e.target.value as ChallengeStatus)}
           >
@@ -149,7 +149,7 @@ export default function NewChallengePage() {
         <button
           type="submit"
           disabled={loading}
-          className={`flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow ${
+          className={`w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-lg shadow-lg transition ${
             loading ? 'opacity-60 cursor-not-allowed' : ''
           }`}
         >

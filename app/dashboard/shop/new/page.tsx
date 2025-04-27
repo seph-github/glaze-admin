@@ -6,6 +6,7 @@ import { Product } from '@/types/interfaces/Products';
 import { createBrowserClient } from '@supabase/ssr';
 import { Donut } from '@/types/interfaces/Donut';
 import Image from 'next/image';
+import { ProductType } from '@/types/enums/ProductType';
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,7 +17,7 @@ export default function NewProductPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const [type, setType] = useState('donut_box');
+  const [type, setType] = useState<ProductType>(ProductType.Bundle);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -99,12 +100,12 @@ export default function NewProductPage() {
               <select
                 className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
                 value={type}
-                onChange={(e) => setType(e.target.value)}
+                onChange={(e) => setType(e.target.value as ProductType)}
               >
-                <option value="featured">Featured</option>
-                <option value="subscription">Subscription</option>
-                <option value="donut_box">Donut Box</option>
-                <option value="bundle">Bundle</option>
+                <option value={ProductType.Featured}>Featured</option>
+                <option value={ProductType.Subscriptions}>Subscription</option>
+                <option value={ProductType.DonutBox}>Donut Box</option>
+                <option value={ProductType.Bundle}>Bundle</option>
               </select>
             </div>
 

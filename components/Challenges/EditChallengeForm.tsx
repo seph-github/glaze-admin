@@ -90,12 +90,10 @@ export default function EditChallengeForm({
       onSubmit={handleSubmit}
       className="space-y-5 bg-white p-8 rounded-md shadow max-w-2xl"
     >
-      <h1 className="text-2xl font-bold text-gray-800">Edit Challenge</h1>
-
       <div>
         <label className="block font-medium text-gray-700">Type</label>
         <select
-          className="w-full mt-1 p-2 border rounded"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
           value={type}
           onChange={(e) => setType(e.target.value as ChallengeType)}
         >
@@ -107,7 +105,7 @@ export default function EditChallengeForm({
       <div>
         <label className="block font-medium text-gray-700">Title</label>
         <input
-          className="w-full mt-1 p-2 border rounded"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
@@ -117,7 +115,7 @@ export default function EditChallengeForm({
       <div>
         <label className="block font-medium text-gray-700">Description</label>
         <textarea
-          className="w-full mt-1 p-2 border rounded"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
@@ -126,7 +124,7 @@ export default function EditChallengeForm({
       <div>
         <label className="block font-medium text-gray-700">Prize</label>
         <input
-          className="w-full mt-1 p-2 border rounded"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
           value={prize}
           onChange={(e) => setPrize(e.target.value)}
         />
@@ -137,7 +135,7 @@ export default function EditChallengeForm({
           <label className="block font-medium text-gray-700">Start Date</label>
           <input
             type="datetime-local"
-            className="w-full mt-1 p-2 border rounded"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
             required
@@ -149,7 +147,7 @@ export default function EditChallengeForm({
         <label className="block font-medium text-gray-700">End Date</label>
         <input
           type="datetime-local"
-          className="w-full mt-1 p-2 border rounded"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
           required
@@ -160,7 +158,7 @@ export default function EditChallengeForm({
         <label className="block font-medium text-gray-700">Image URL</label>
         <input
           type="text"
-          className="w-full mt-1 p-2 border rounded"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
         />
@@ -169,7 +167,7 @@ export default function EditChallengeForm({
       <div>
         <label className="block font-medium text-gray-700">Status</label>
         <select
-          className="w-full mt-1 p-2 border rounded"
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
           value={status}
           onChange={(e) => setStatus(e.target.value as ChallengeStatus)}
         >
@@ -182,7 +180,7 @@ export default function EditChallengeForm({
         <button
           type="submit"
           disabled={loading}
-          className={`flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow ${
+          className={`w-full flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow ${
             loading ? 'opacity-60 cursor-not-allowed' : ''
           }`}
         >
@@ -214,7 +212,7 @@ export default function EditChallengeForm({
           type="button"
           disabled={deleting}
           onClick={handleDelete}
-          className={`bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded shadow ${
+          className={`w-full bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded shadow ${
             deleting ? 'opacity-60 cursor-not-allowed' : ''
           }`}
         >
