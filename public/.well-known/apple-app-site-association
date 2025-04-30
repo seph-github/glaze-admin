@@ -1,11 +1,25 @@
 {
-    "applinks": {
-        "apps": [],
-        "details": [
-            {
-                "appId": "6YDV9VK972.com.glazemedia.glaze.development", 
-                "paths": ["/auth/reset-password/*"]
-            }
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "6YDV9VK972.com.glazemedia.glaze.development"
+        ],
+        "paths": [
+          "*"
+        ],
+        "components": [
+          {
+            "/": "/*"
+          }
         ]
-    }
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "6YDV9VK972.com.glazemedia.glaze.development"
+    ]
+  }
 }
