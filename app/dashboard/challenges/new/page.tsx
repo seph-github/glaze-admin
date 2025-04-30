@@ -17,7 +17,7 @@ export default function NewChallengePage() {
   const [status, setStatus] = useState<ChallengeStatus>(ChallengeStatus.active);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [imageUrl, ] = useState('');
+  const [imageUrl] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
