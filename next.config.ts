@@ -6,6 +6,20 @@ const nextConfig: NextConfig = {
   images: {
     domains: [process.env.NEXT_PUBLIC_SUPABASE_IMAGE_DOMAIN || ''],
   },
+  async headers() {
+    return [
+      {
+        // Match all API routes
+        source: '/apple-app-site-association',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/json',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
