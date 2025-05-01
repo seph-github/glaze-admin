@@ -3,3 +3,14 @@
   [headers.values]
     Content-Type = "application/json"
     Cache-Control = "public, max-age=86400"
+
+# For Next.js projects
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[redirects]]
+  from = "/.well-known/apple-app-site-association"
+  to = "/.well-known/apple-app-site-association"
+  status = 200
+  force = true
