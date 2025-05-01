@@ -2,7 +2,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: [process.env.NEXT_PUBLIC_SUPABASE_IMAGE_DOMAIN || ''],
   },
