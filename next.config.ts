@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
   images: {
     domains: [process.env.NEXT_PUBLIC_SUPABASE_IMAGE_DOMAIN || ''],
   },
-  // source: '/public/.well-known/apple-app-site-association',
   async headers() {
     return [
       {
