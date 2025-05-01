@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Type',
             value: 'application/json',
           },
+          { key: 'Cache-Control', value: 'public, max-age=86400' },
         ],
       },
     ];
