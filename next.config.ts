@@ -7,37 +7,20 @@ const nextConfig: NextConfig = {
     domains: [process.env.NEXT_PUBLIC_SUPABASE_IMAGE_DOMAIN || ''],
   },
   // source: '/public/.well-known/apple-app-site-association',
-  async headers() {
-    return [
-      {
-        // Match all API routes
-        source: '/.well-known/apple-app-site-association',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/json',
-          },
-        ],
-      },
-    ];
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       // Match all API routes
+  //       source: '/.well-known/apple-app-site-association',
+  //       headers: [
+  //         {
+  //           key: 'Content-Type',
+  //           value: 'application/json',
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
 };
 
 export default nextConfig;
-
-/* 
-async headers() {
-    return [
-      {
-        // Match all API routes
-        source: '/public/.well-known/apple-app-site-association',
-        headers: [
-          {
-            key: 'Content-Type',
-            value: 'application/json',
-          },
-        ],
-      },
-    ];
-  },
-*/
