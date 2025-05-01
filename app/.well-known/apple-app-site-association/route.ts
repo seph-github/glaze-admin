@@ -1,22 +1,23 @@
-// app/.well-known/apple-app-site-association/route.ts
-
-import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+export const runtime = 'edge'; // Crucial for Vercel
 
 export async function GET() {
-  const filePath = path.join(
-    process.cwd(),
-    'public',
-    '.well-known',
-    'apple-app-site-association'
+  return new Response(
+    JSON.stringify({
+      applinks: {
+        apps: [],
+        details: [
+          {
+            appID: 'TEAMID.com.your.app',
+            paths: ['*'],
+          },
+        ],
+      },
+    }),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=86400',
+      },
+    }
   );
-  const fileContents = fs.readFileSync(filePath, 'utf8');
-
-  return new NextResponse(fileContents, {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
 }
