@@ -10,11 +10,10 @@
       ]
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/.well-known/apple-app-site-association",
-      "methods": ["GET"],
-      "dest": "/.well-known/apple-app-site-association"
+      "source": "/.well-known/apple-app-site-association",
+      "destination": "/.well-known/apple-app-site-association"
     }
   ]
 }
