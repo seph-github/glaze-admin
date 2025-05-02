@@ -8,6 +8,7 @@ import {
   ShieldAlert,
   ChartSpline,
   LayoutDashboardIcon,
+  User,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -16,6 +17,7 @@ import Image from 'next/image';
 
 const navItems = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboardIcon },
+  { label: 'Users', href: '/dashboard/users', icon: User },
   { label: 'Recruiters', href: '/dashboard/recruiters', icon: Users },
   { label: 'Shop', href: '/dashboard/shop', icon: Store },
   { label: 'Videos', href: '/dashboard/videos', icon: Video },
