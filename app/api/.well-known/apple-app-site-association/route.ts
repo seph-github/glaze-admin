@@ -7,17 +7,17 @@ export async function GET() {
       apps: [] as string[],
       details: [
         {
-          appIDs: ["6YDV9VK972.com.glazemedia.glaze.development"],
-          paths: ["/reset-password*", "/auth/*", "NOT /dashboard/*"]
-        }
-      ]
+          appIDs: ['6YDV9VK972.com.glazemedia.glaze.development'],
+          paths: ['/reset-password*', '/auth/*', 'NOT /dashboard/*'],
+        },
+      ],
     },
     webcredentials: {
-      apps: ["6YDV9VK972.com.glazemedia.glaze.development"]
+      apps: ['6YDV9VK972.com.glazemedia.glaze.development'],
     },
     appclips: {
-      apps: [] as string[]
-    }
+      apps: [] as string[],
+    },
   };
 
   return new NextResponse(JSON.stringify(aasa), {
@@ -29,4 +29,4 @@ export async function GET() {
   });
 }
 
-export const dynamic = 'force-static'; // Ensure static generation
+export const dynamic = 'force-static';

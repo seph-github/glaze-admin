@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Product } from '@/types/interfaces/Products';
+import { Product } from '@/types/interfaces/Product';
 import { createBrowserClient } from '@supabase/ssr';
 import { Donut } from '@/types/interfaces/Donut';
 import Image from 'next/image';
@@ -31,6 +31,7 @@ export default function NewProductPage() {
   const [donuts, setDonuts] = useState<Donut[]>([]);
   const [selectedDonuts, setSelectedDonuts] = useState<string[]>([]);
   const [features, setFeatures] = useState<string[]>([]);
+  const [selectedColor, setSelectedColor] = useState('');
 
   // Fetch donuts from DB
   useEffect(() => {
@@ -66,6 +67,7 @@ export default function NewProductPage() {
       start_at: startDate,
       end_at: endDate,
       features,
+      color: selectedColor,
     };
 
     const res = await fetch('/api/shop', {
@@ -93,9 +95,9 @@ export default function NewProductPage() {
           {/* LEFT COLUMN */}
           <div className="flex-1 space-y-6 bg-white p-8 rounded-xl shadow-md border">
             {/* Type Selector */}
-            <div>
-              <label className="block font-medium text-gray-700">
-                Product Type
+            <div className="space-y-2">
+              <label className="block font-bold text-gray-700">
+                Product Type <span className="text-red-500">*</span>
               </label>
               <select
                 className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
@@ -109,9 +111,55 @@ export default function NewProductPage() {
               </select>
             </div>
 
+            {/* Color Picker */}
+
+            <div className="space-y-2">
+              <label className=" block font-medium text-gray-700 mb-2 ">
+                Select Product Color <span className="text-red-500">*</span>
+              </label>
+              <div className="flex flex-wrap gap-8">
+                {[
+                  'F3C623',
+                  '67AE6E',
+                  'E9A319',
+                  '547792',
+                  'C68EFD',
+                  'A08963',
+                  '4F959D',
+                  'FFB8E0',
+                  'B6FFA1',
+                  '68D2E8',
+                ].map((color) => {
+                  const hex = `#${color}`;
+                  const isSelected = selectedColor === hex;
+
+                  return (
+                    <button
+                      key={color}
+                      type="button"
+                      onClick={() => setSelectedColor(hex)}
+                      style={{ backgroundColor: hex }}
+                      className={`w-10 h-10 rounded-md border-2 transition-all duration-150 ${
+                        isSelected
+                          ? 'border-pink-400 scale-110'
+                          : 'border-transparent'
+                      }`}
+                      aria-label={`Select color ${hex}`}
+                    />
+                  );
+                })}
+              </div>
+
+              {selectedColor === '' && (
+                <p className="text-sm text-red-500 mt-1">Color is required</p>
+              )}
+            </div>
+
             {/* Name */}
-            <div>
-              <label className="block font-medium text-gray-700">Name</label>
+            <div className="space-y-2">
+              <label className="block font-bold text-gray-700">
+                Name <span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
@@ -122,8 +170,8 @@ export default function NewProductPage() {
             </div>
 
             {/* Description */}
-            <div>
-              <label className="block font-medium text-gray-700">
+            <div className="space-y-2">
+              <label className="block font-bold text-gray-700">
                 Description
               </label>
               <textarea
@@ -137,7 +185,7 @@ export default function NewProductPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="block font-bold text-gray-700">
-                  Product Features
+                  Product Features <span className="text-red-500">*</span>
                 </label>
                 <button
                   type="button"
@@ -182,9 +230,9 @@ export default function NewProductPage() {
 
             {/* Price and Discount */}
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block font-medium text-gray-700">
-                  Price ($)
+              <div className="space-y-2">
+                <label className="block font-bold text-gray-700">
+                  Price ($) <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -195,8 +243,8 @@ export default function NewProductPage() {
                   required
                 />
               </div>
-              <div>
-                <label className="block font-medium text-gray-700">
+              <div className="space-y-2">
+                <label className="block font-bold text-gray-700">
                   Discount Price ($)
                 </label>
                 <input
@@ -261,8 +309,8 @@ export default function NewProductPage() {
           <div className="flex-1 space-y-6 bg-white p-8 rounded-xl shadow-md border">
             {type === 'featured' && (
               <div className="flex-1 space-y-6">
-                <div>
-                  <label className="block font-medium text-gray-700">
+                <div className="space-y-2">
+                  <label className="block font-bold text-gray-700">
                     Start Date
                   </label>
                   <input
@@ -273,8 +321,8 @@ export default function NewProductPage() {
                     required
                   />
                 </div>
-                <div>
-                  <label className="block font-medium text-gray-700">
+                <div className="space-y-2">
+                  <label className="block font-bold text-gray-700">
                     End Date
                   </label>
                   <input
@@ -288,9 +336,9 @@ export default function NewProductPage() {
               </div>
             )}
 
-            <div>
-              <label className="block font-semibold text-gray-700">
-                Select Donuts
+            <div className="space-y-2">
+              <label className="block font-bold text-gray-700">
+                Select Donuts <span className="text-red-500">*</span>
               </label>
 
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-h-[500px] overflow-y-auto p-4 border rounded-lg bg-gray-50">

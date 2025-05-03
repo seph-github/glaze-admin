@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
       donut_ids: body.donut_ids || [],
       start_at: body.start_at,
       end_at: body.end_at,
+      color: body.color,
     },
   ]);
 

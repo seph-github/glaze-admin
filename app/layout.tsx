@@ -24,6 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          property="al:ios:url"
+          content="myapp://auth/reset-password?token={token}"
+        />
+        <meta property="al:ios:app_store_id" content="6744579128" />
+        <meta property="al:ios:app_name" content="Glaze" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

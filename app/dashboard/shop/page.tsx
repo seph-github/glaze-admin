@@ -1,12 +1,24 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import { Products } from '@/types/interfaces/Products';
+import Image from 'next/image';
 
 export default async function ShopPage() {
   const supabase = await createClient();
-  const { data: products } = await supabase
-    .from('shop_products')
-    .select('*')
-    .order('created_at', { ascending: false });
+  const { data: products } = (await supabase
+    .rpc('get_products')
+    // .from('shop_products')
+    // .select('*')
+    .order('created_at', { ascending: false })) as { data: Products[] };
+
+  console.log('Products ' + products);
+
+  function hexToRGBA(hex: string, alpha = 1): string {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
 
   return (
     <div className="space-y-6">
@@ -17,7 +29,7 @@ export default async function ShopPage() {
         <div className="flex gap-x-4">
           <Link
             href="/dashboard/shop/donuts"
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow transition"
+            className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded shadow transition"
           >
             Show Donuts
           </Link>
@@ -36,32 +48,55 @@ export default async function ShopPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {products?.map((product) => (
           <div
             key={product.id}
-            className="bg-white shadow p-4 rounded space-y-2"
+            className="grid grid-cols-3 gap-4 p-4 shadow rounded"
+            style={{
+              backgroundColor: hexToRGBA(product.color || '#FFFFFF', 0.4),
+            }}
           >
-            <div className="flex justify-between">
-              <h2 className="text-lg font-semibold">{product.name}</h2>
-              <span className="text-sm text-gray-500 capitalize">
-                {product.type}
-              </span>
+            {/* Column 1: Donut Images (stacked vertically) */}
+            <div className="flex flex-col gap-2">
+              {product.donuts?.map((donut) => (
+                <div
+                  key={donut.id}
+                  className="w-[50px] h-[50px] relative rounded overflow-hidden"
+                >
+                  <Image
+                    src={donut.image_url}
+                    alt={donut.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
             </div>
-            <p className="text-sm text-gray-700">{product.description}</p>
-            <p className="text-sm">
-              Price: ${(product.price_cents / 100).toFixed(2)}
-            </p>
-            <p className="text-sm">Quantity: {product.quantity}</p>
-            <p className="text-xs text-gray-500">
-              Created: {new Date(product.created_at).toLocaleDateString()}
-            </p>
-            <Link
-              href={`/dashboard/shop/${product.id}/edit`}
-              className="text-blue-600 text-sm hover:underline"
-            >
-              Edit
-            </Link>
+
+            {/* Column 2: Product Details */}
+            <div className="space-y-1">
+              <h2 className="text-lg font-semibold">{product.name}</h2>
+              <p className="text-sm text-gray-700">{product.description}</p>
+              <p className="text-sm">
+                Price: ${(product.price_cents / 100).toFixed(2)}
+              </p>
+              <p className="text-sm">Quantity: {product.quantity}</p>
+              <p className="text-xs text-gray-500">
+                Created: {new Date(product.created_at).toLocaleDateString()}
+              </p>
+              <Link
+                href={`/dashboard/shop/${product.id}/edit`}
+                className="text-blue-600 text-sm hover:underline"
+              >
+                Edit
+              </Link>
+            </div>
+
+            {/* Column 3: Product Type */}
+            <div className="text-sm text-gray-500 capitalize flex items-start">
+              {product.type}
+            </div>
           </div>
         ))}
       </div>

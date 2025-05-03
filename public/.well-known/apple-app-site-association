@@ -7,7 +7,9 @@
           "6YDV9VK972.com.glazemedia.glaze.development"
         ],
         "paths": [
-          "*"
+          "/auth/reset-password*",
+          "/auth*",
+          "NOT /dashboard*"
         ],
         "components": [
           {
