@@ -11,7 +11,7 @@ export default function QuickActions() {
         onClick={() => router.push('/dashboard/challenges/new')}
         className="bg-blue-500 text-white p-4 rounded shadow"
       >
-        + New Challenge
+        New Challenge
       </button>
       <button
         onClick={() => router.push('/dashboard/shop')}
