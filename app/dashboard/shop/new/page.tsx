@@ -92,8 +92,6 @@ export default function NewProductPage() {
 
     const safeFeatures = Array.isArray(features) ? features : [];
 
-    const reqBody = JSON.stringify({ productBody, features: safeFeatures });
-    console.log('request body ', reqBody);
     const res = await fetch('/api/shop', {
       method: 'POST',
       body: JSON.stringify({ productBody, features: safeFeatures }),

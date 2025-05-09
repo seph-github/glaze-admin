@@ -16,4 +16,7 @@ export interface Product {
   start_at: string | null;
   end_at: string | null;
   color: string | null;
+  stripe_product_id: string | null;
+  stripe_price_id: string | null;
+  synced: boolean;
 }

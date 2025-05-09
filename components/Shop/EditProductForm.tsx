@@ -22,7 +22,9 @@ export default function EditProductForm({ product }: { product: Product }) {
   const [name, setName] = useState(product.name);
   const [description, setDescription] = useState(product.description || '');
   const [type, setType] = useState<ProductType>(product.type);
-  const [price, setPrice] = useState((product.price_cents / 100).toString());
+  const [price, setPrice] = useState(
+    (product.price_cents! / 100).toString() || null
+  );
   const [discountPrice, setDiscountPrice] = useState(
     product.discount_price_cents
       ? (product.discount_price_cents / 100).toString()
@@ -115,13 +117,19 @@ export default function EditProductForm({ product }: { product: Product }) {
       return;
     }
 
+    const hasNameChanged = name !== product.name;
+    const hasPriceChanged =
+      Math.round(parseFloat(price!) * 100) !== product.price_cents;
+
+    const shouldUpdateStripe = hasNameChanged || hasPriceChanged;
+
     setLoading(true);
 
     const productBody: Partial<Product> = {
       name,
       description,
       type,
-      price_cents: Math.round(parseFloat(price) * 100),
+      price_cents: Math.round(parseFloat(price!) * 100),
       discount_price_cents: discountPrice
         ? Math.round(parseFloat(discountPrice) * 100)
         : undefined,
@@ -134,9 +142,15 @@ export default function EditProductForm({ product }: { product: Product }) {
       color: selectedColor,
     };
 
+    const safeFeatures = Array.isArray(features) ? features : [];
+
     const res = await fetch(`/api/shop/${product.id}`, {
       method: 'PATCH',
-      body: JSON.stringify(productBody),
+      body: JSON.stringify({
+        productBody,
+        features: safeFeatures,
+        shouldUpdateStripe,
+      }),
     });
 
     setLoading(false);
@@ -181,7 +195,7 @@ export default function EditProductForm({ product }: { product: Product }) {
                 onChange={(e) => setType(e.target.value as ProductType)}
               >
                 <option value={ProductType.Featured}>Featured</option>
-                <option value={ProductType.Subscriptions}>Subscription</option>
+                <option value={ProductType.Subscription}>Subscription</option>
                 <option value={ProductType.DonutBox}>Donut Box</option>
                 <option value={ProductType.Bundle}>Bundle</option>
               </select>
@@ -267,7 +281,7 @@ export default function EditProductForm({ product }: { product: Product }) {
                   type="number"
                   step="0.01"
                   className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-                  value={price}
+                  value={price!}
                   onChange={(e) => setPrice(e.target.value)}
                   required
                 />

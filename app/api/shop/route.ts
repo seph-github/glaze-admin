@@ -15,8 +15,6 @@ export async function POST(req: NextRequest) {
 
     const { productBody, features } = body;
 
-    console.log(`Router Product body ${productBody}, features: ${features} `);
-
     if (!productBody.name || !productBody.price_cents) {
       return NextResponse.json(
         { error: 'Missing required fields' },
@@ -31,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     const stripePrice = await stripe.prices.create({
       product: stripeProduct.id,
-      unit_amount: productBody.price_cents,
+      unit_amount_decimal: productBody.price_cents,
       currency: 'usd',
     });
 
