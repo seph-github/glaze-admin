@@ -1,4 +1,4 @@
-import { ProductType } from '../enums/ProductType';
+import { ProductType } from "../enums/ProductType";
 
 export interface Product {
   id: string;
@@ -15,6 +15,5 @@ export interface Product {
   created_at: string;
   start_at: string | null;
   end_at: string | null;
-  features: string[];
   color: string | null;
 }

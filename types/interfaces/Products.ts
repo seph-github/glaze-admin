@@ -1,5 +1,5 @@
-import { ProductType } from '../enums/ProductType';
-import { Donut } from './Donut';
+import { ProductType } from "../enums/ProductType";
+import { Donut } from "./Donut";
 
 export interface Products {
   id: string;

@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import { createClient } from '@/lib/supabase/server';
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function ChallengeListPage() {
   const supabase = await createClient();
   const { data: challenges } = await supabase
-    .from('challenges')
-    .select('*')
-    .order('created_at', { ascending: false });
+    .from("challenges")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   return (
     <div className="space-y-4">
@@ -28,7 +28,7 @@ export default async function ChallengeListPage() {
           >
             <h2 className="text-lg font-semibold">{challenge.title}</h2>
             <p className="text-sm text-gray-500">{challenge.description}</p>
-            <p className="text-xs">Prize: {challenge.prize ?? 'None'}</p>
+            <p className="text-xs">Prize: {challenge.prize ?? "None"}</p>
             <p className="text-xs">Status: {challenge.status}</p>
             <Link
               href={`/dashboard/challenges/${challenge.id}/edit`}

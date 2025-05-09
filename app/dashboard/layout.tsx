@@ -1,18 +1,18 @@
-import DashboardFooter from '@/components/Dashboard/Footer';
-import DashboardHeader from '@/components/Dashboard/Header';
-import { DashboardSidebar } from '@/components/Dashboard/Sidebar';
-import TopLoadingBar from '@/components/ui/TopLoadingBar';
-import { Geist, Geist_Mono } from 'next/font/google';
-import { Toaster } from 'react-hot-toast';
+import DashboardFooter from "@/components/Dashboard/Footer";
+import DashboardHeader from "@/components/Dashboard/Header";
+import { DashboardSidebar } from "@/components/Dashboard/Sidebar";
+import TopLoadingBar from "@/components/ui/TopLoadingBar";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export default function Layout({

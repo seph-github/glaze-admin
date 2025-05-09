@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Users,
@@ -9,21 +9,21 @@ import {
   ChartSpline,
   LayoutDashboardIcon,
   User,
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navItems = [
-  { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboardIcon },
-  { label: 'Users', href: '/dashboard/users', icon: User },
-  { label: 'Recruiters', href: '/dashboard/recruiters', icon: Users },
-  { label: 'Shop', href: '/dashboard/shop', icon: Store },
-  { label: 'Videos', href: '/dashboard/videos', icon: Video },
-  { label: 'Challenges', href: '/dashboard/challenges', icon: Trophy },
-  { label: 'Analytics', href: '/dashboard/analytics', icon: ChartSpline },
-  { label: 'Moderation', href: '/dashboard/moderation', icon: ShieldAlert },
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboardIcon },
+  { label: "Users", href: "/dashboard/users", icon: User },
+  { label: "Recruiters", href: "/dashboard/recruiters", icon: Users },
+  { label: "Shop", href: "/dashboard/shop", icon: Store },
+  { label: "Videos", href: "/dashboard/videos", icon: Video },
+  { label: "Challenges", href: "/dashboard/challenges", icon: Trophy },
+  { label: "Analytics", href: "/dashboard/analytics", icon: ChartSpline },
+  { label: "Moderation", href: "/dashboard/moderation", icon: ShieldAlert },
 ];
 
 export function DashboardSidebar() {
@@ -50,10 +50,10 @@ export function DashboardSidebar() {
               key={href}
               href={href}
               className={cn(
-                'flex items-center gap-3 px-4 py-2 rounded-md transition hover:bg-muted',
+                "flex items-center gap-3 px-4 py-2 rounded-md transition hover:bg-muted",
                 isActive
-                  ? 'bg-muted font-semibold text-primary'
-                  : 'text-muted-foreground'
+                  ? "bg-muted font-semibold text-primary"
+                  : "text-muted-foreground",
               )}
             >
               <Icon className="w-5 h-5" />

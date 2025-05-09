@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
 
 NProgress.configure({ showSpinner: false });
 

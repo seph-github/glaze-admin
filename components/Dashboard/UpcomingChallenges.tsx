@@ -1,14 +1,14 @@
-import { createClient } from '@/lib/supabase/server';
-import Link from 'next/link';
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 
 export default async function UpcomingChallenges() {
   const supabase = await createClient();
 
   const { data: challenges } = await supabase
-    .from('challenges')
-    .select('*')
-    .gt('start_date', new Date().toISOString())
-    .order('start_date', { ascending: true })
+    .from("challenges")
+    .select("*")
+    .gt("start_date", new Date().toISOString())
+    .order("start_date", { ascending: true })
     .limit(5);
 
   return (

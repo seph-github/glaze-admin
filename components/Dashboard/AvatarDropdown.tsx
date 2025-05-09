@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { createClient } from '@/lib/supabase/client'; // Ensure this is your Supabase client instance
-import { useRouter } from 'next/navigation';
+import { useState } from "react";
+import Image from "next/image";
+import { createClient } from "@/lib/supabase/client"; // Ensure this is your Supabase client instance
+import { useRouter } from "next/navigation";
 
 export default function AvatarDropdown({
   profileImage,
@@ -21,9 +21,9 @@ export default function AvatarDropdown({
     const supabase = createClient();
     const { error } = await supabase.auth.signOut();
     if (!error) {
-      router.push('/auth/login'); // Redirect to the login page after logout
+      router.push("/auth/login"); // Redirect to the login page after logout
     } else {
-      console.error('Logout failed:', error.message);
+      console.error("Logout failed:", error.message);
     }
   };
 

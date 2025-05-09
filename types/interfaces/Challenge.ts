@@ -1,5 +1,5 @@
-import { ChallengeStatus } from '../enums/ChallengeStatus';
-import { ChallengeType } from '../enums/ChallengeType';
+import { ChallengeStatus } from "../enums/ChallengeStatus";
+import { ChallengeType } from "../enums/ChallengeType";
 
 export interface Challenge {
   id: string;

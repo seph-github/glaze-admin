@@ -1,4 +1,4 @@
 export enum ChallengeStatus {
-  active = 'active',
-  completed = 'completed',
+  active = "active",
+  completed = "completed",
 }

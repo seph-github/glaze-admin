@@ -1,12 +1,12 @@
-import { createClient } from '@/lib/supabase/server';
-import Link from 'next/link';
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 
 export default async function FlaggedContent() {
   const supabase = await createClient();
   const { data: flagged } = await supabase
-    .from('flags')
-    .select('id, video_id, reason, created_at')
-    .order('created_at', { ascending: false })
+    .from("flags")
+    .select("id, video_id, reason, created_at")
+    .order("created_at", { ascending: false })
     .limit(5);
 
   return (

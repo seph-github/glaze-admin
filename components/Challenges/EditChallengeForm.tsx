@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Challenge } from '@/types/interfaces/Challenge';
-import { ChallengeStatus } from '@/types/enums/ChallengeStatus';
-import { ChallengeType } from '@/types/enums/ChallengeType';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Challenge } from "@/types/interfaces/Challenge";
+import { ChallengeStatus } from "@/types/enums/ChallengeStatus";
+import { ChallengeType } from "@/types/enums/ChallengeType";
 
 export default function EditChallengeForm({
   challenge,
@@ -17,21 +17,21 @@ export default function EditChallengeForm({
   const [deleting, setDeleting] = useState(false);
 
   const [type, setType] = useState<ChallengeType>(
-    challenge.type || ChallengeType.scheduled
+    challenge.type || ChallengeType.scheduled,
   );
-  const [title, setTitle] = useState(challenge.title || '');
-  const [description, setDescription] = useState(challenge.description || '');
-  const [prize, setPrize] = useState(challenge.prize || '');
+  const [title, setTitle] = useState(challenge.title || "");
+  const [description, setDescription] = useState(challenge.description || "");
+  const [prize, setPrize] = useState(challenge.prize || "");
   const [status, setStatus] = useState<ChallengeStatus>(
-    challenge.status || ChallengeStatus.active
+    challenge.status || ChallengeStatus.active,
   );
   const [startDate, setStartDate] = useState(
-    challenge.start_date?.slice(0, 16) || ''
+    challenge.start_date?.slice(0, 16) || "",
   );
   const [endDate, setEndDate] = useState(
-    challenge.end_date?.slice(0, 16) || ''
+    challenge.end_date?.slice(0, 16) || "",
   );
-  const [imageUrl, setImageUrl] = useState(challenge.image_url || '');
+  const [imageUrl, setImageUrl] = useState(challenge.image_url || "");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -49,23 +49,23 @@ export default function EditChallengeForm({
     };
 
     const res = await fetch(`/api/challenges/${challenge.id}`, {
-      method: 'PATCH',
+      method: "PATCH",
       body: JSON.stringify(editedChallengeData),
     });
 
     setLoading(false);
 
     if (res.ok) {
-      router.push('/dashboard/challenges');
+      router.push("/dashboard/challenges");
     } else {
-      alert('Update failed');
+      alert("Update failed");
     }
   }
 
   async function handleDelete() {
     if (
       !confirm(
-        'Are you sure you want to delete this challenge? This action is permanent.'
+        "Are you sure you want to delete this challenge? This action is permanent.",
       )
     )
       return;
@@ -73,15 +73,15 @@ export default function EditChallengeForm({
     setDeleting(true);
 
     const res = await fetch(`/api/challenges/${challenge.id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
 
     setDeleting(false);
 
     if (res.ok) {
-      router.push('/dashboard/challenges');
+      router.push("/dashboard/challenges");
     } else {
-      alert('Delete failed');
+      alert("Delete failed");
     }
   }
 
@@ -130,7 +130,7 @@ export default function EditChallengeForm({
         />
       </div>
 
-      {type === 'scheduled' && (
+      {type === "scheduled" && (
         <div>
           <label className="block font-medium text-gray-700">Start Date</label>
           <input
@@ -181,7 +181,7 @@ export default function EditChallengeForm({
           type="submit"
           disabled={loading}
           className={`w-full flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow ${
-            loading ? 'opacity-60 cursor-not-allowed' : ''
+            loading ? "opacity-60 cursor-not-allowed" : ""
           }`}
         >
           {loading && (
@@ -205,7 +205,7 @@ export default function EditChallengeForm({
               />
             </svg>
           )}
-          {loading ? 'Saving...' : 'Save'}
+          {loading ? "Saving..." : "Save"}
         </button>
 
         <button
@@ -213,10 +213,10 @@ export default function EditChallengeForm({
           disabled={deleting}
           onClick={handleDelete}
           className={`w-full bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded shadow ${
-            deleting ? 'opacity-60 cursor-not-allowed' : ''
+            deleting ? "opacity-60 cursor-not-allowed" : ""
           }`}
         >
-          {deleting ? 'Deleting...' : 'Delete'}
+          {deleting ? "Deleting..." : "Delete"}
         </button>
       </div>
     </form>

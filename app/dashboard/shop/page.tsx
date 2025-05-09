@@ -1,17 +1,17 @@
-import Link from 'next/link';
-import { createClient } from '@/lib/supabase/server';
-import { Products } from '@/types/interfaces/Products';
-import Image from 'next/image';
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { Products } from "@/types/interfaces/Products";
+import Image from "next/image";
 
 export default async function ShopPage() {
   const supabase = await createClient();
   const { data: products } = (await supabase
-    .rpc('get_products')
+    .rpc("get_products")
     // .from('shop_products')
     // .select('*')
-    .order('created_at', { ascending: false })) as { data: Products[] };
+    .order("created_at", { ascending: false })) as { data: Products[] };
 
-  console.log('Products ' + products);
+  console.log("Products " + products);
 
   function hexToRGBA(hex: string, alpha = 1): string {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -54,7 +54,7 @@ export default async function ShopPage() {
             key={product.id}
             className="grid grid-cols-3 gap-4 p-4 shadow rounded"
             style={{
-              backgroundColor: hexToRGBA(product.color || '#FFFFFF', 0.4),
+              backgroundColor: hexToRGBA(product.color || "#FFFFFF", 0.4),
             }}
           >
             {/* Column 1: Donut Images (stacked vertically) */}
@@ -85,17 +85,17 @@ export default async function ShopPage() {
               <p className="text-xs text-gray-500">
                 Created: {new Date(product.created_at).toLocaleDateString()}
               </p>
-              <Link
-                href={`/dashboard/shop/${product.id}/edit`}
-                className="text-blue-600 text-sm hover:underline"
-              >
-                Edit
-              </Link>
             </div>
 
             {/* Column 3: Product Type */}
-            <div className="text-sm text-gray-500 capitalize flex items-start">
-              {product.type}
+            <div className="text-sm text-gray-500 capitalize flex-col flex justify-between h-full">
+              <div className="mb-2">{product.type}</div>
+              <Link
+                href={`/dashboard/shop/${product.id}/edit`}
+                className="text-blue-600 text-sm hover:underline self-end"
+              >
+                Edit
+              </Link>
             </div>
           </div>
         ))}

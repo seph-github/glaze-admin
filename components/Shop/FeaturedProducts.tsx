@@ -1,14 +1,14 @@
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from "@/lib/supabase/server";
 
 export default async function FeaturedProduct() {
   const supabase = await createClient();
   const { data: product } = await supabase
-    .from('shop_products')
-    .select('*')
-    .eq('type', 'featured')
-    .eq('is_active', true)
-    .eq('is_featured', true)
-    .order('created_at', { ascending: false })
+    .from("shop_products")
+    .select("*")
+    .eq("type", "featured")
+    .eq("is_active", true)
+    .eq("is_featured", true)
+    .order("created_at", { ascending: false })
     .limit(1)
     .single();
 

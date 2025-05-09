@@ -1,7 +1,7 @@
-import EditChallengeForm from '@/components/Challenges/EditChallengeForm';
-import { createClient } from '@/lib/supabase/server';
-import { Challenge } from '@/types/interfaces/Challenge';
-import { notFound } from 'next/navigation';
+import EditChallengeForm from "@/components/Challenges/EditChallengeForm";
+import { createClient } from "@/lib/supabase/server";
+import { Challenge } from "@/types/interfaces/Challenge";
+import { notFound } from "next/navigation";
 
 export default async function EditChallengePage({
   params,
@@ -11,9 +11,9 @@ export default async function EditChallengePage({
   const { id } = await params;
   const supabase = await createClient();
   const { data: challenge } = await supabase
-    .from('challenges')
-    .select('*')
-    .eq('id', id)
+    .from("challenges")
+    .select("*")
+    .eq("id", id)
     .single();
 
   if (!challenge) return notFound();

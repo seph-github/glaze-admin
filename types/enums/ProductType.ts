@@ -1,6 +1,6 @@
 export enum ProductType {
-  Featured = 'featured',
-  Subscriptions = 'subscriptions',
-  Bundle = 'bundle',
-  DonutBox = 'donut_box',
+  Featured = "featured",
+  Subscriptions = "subscriptions",
+  Bundle = "bundle",
+  DonutBox = "donut_box",
 }

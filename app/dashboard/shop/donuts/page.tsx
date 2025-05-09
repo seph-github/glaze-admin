@@ -1,18 +1,18 @@
-import { createClient } from '@/lib/supabase/server';
-import Link from 'next/link';
-import Image from 'next/image';
+import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
+import Image from "next/image";
 
 export default async function DonutsPage() {
   const supabase = await createClient();
 
   // Fetch all donuts from the database
   const { data: donuts, error } = await supabase
-    .from('donuts')
-    .select('*')
-    .order('created_at', { ascending: false });
+    .from("donuts")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   if (error) {
-    console.error('Error fetching donuts:', error.message);
+    console.error("Error fetching donuts:", error.message);
     return <div className="text-red-500">Failed to load donuts.</div>;
   }
 

@@ -1,4 +1,4 @@
 export enum ChallengeType {
-  live = 'live',
-  scheduled = 'scheduled',
+  live = "live",
+  scheduled = "scheduled",
 }
