@@ -1,12 +1,12 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 export default async function SubscriptionTier() {
   const supabase = await createClient();
   const { data: plan } = await supabase
-    .from("shop_products")
-    .select("*")
-    .eq("type", "subscription")
-    .eq("is_active", true)
+    .from('shop_products')
+    .select('*')
+    .eq('type', 'subscription')
+    .eq('is_active', true)
     .limit(1)
     .single();
 

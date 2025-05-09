@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Image from "next/image";
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import Image from 'next/image';
 
 export default function NewDonutPage() {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isDefault, setIsDefault] = useState<boolean>(false);
@@ -18,26 +18,26 @@ export default function NewDonutPage() {
     setLoading(true);
 
     if (!imageFile) {
-      alert("Please upload an image");
+      alert('Please upload an image');
       setLoading(false);
       return;
     }
 
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("is_default", isDefault.toString());
-    formData.append("image", imageFile);
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('is_default', isDefault.toString());
+    formData.append('image', imageFile);
 
-    const res = await fetch("/api/shop/donuts", {
-      method: "POST",
+    const res = await fetch('/api/shop/donuts', {
+      method: 'POST',
       body: formData,
     });
 
     setLoading(false);
 
     if (res.ok) {
-      router.push("/dashboard/shop/donuts");
+      router.push('/dashboard/shop/donuts');
     } else {
       const errorData = await res.json();
       alert(errorData.error);
@@ -128,7 +128,7 @@ export default function NewDonutPage() {
               htmlFor="file-upload"
               className="mt-4 inline-block bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 px-4 rounded-lg transition"
             >
-              {imagePreview ? "Change Image" : "Select Image"}
+              {imagePreview ? 'Change Image' : 'Select Image'}
             </label>
           </div>
         </div>
@@ -152,10 +152,10 @@ export default function NewDonutPage() {
           type="submit"
           disabled={loading}
           className={`w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-lg shadow-lg transition ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
+            loading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
-          {loading ? "Creating Donut..." : "Create Donut"}
+          {loading ? 'Creating Donut...' : 'Create Donut'}
         </button>
       </form>
     </div>

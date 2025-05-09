@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { ChallengeStatus } from "@/types/enums/ChallengeStatus";
-import { ChallengeType } from "@/types/enums/ChallengeType";
-import { Challenge } from "@/types/interfaces/Challenge";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ChallengeStatus } from '@/types/enums/ChallengeStatus';
+import { ChallengeType } from '@/types/enums/ChallengeType';
+import { Challenge } from '@/types/interfaces/Challenge';
 
 export default function NewChallengePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const [type, setType] = useState<ChallengeType>(ChallengeType.scheduled);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [prize, setPrize] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [prize, setPrize] = useState('');
   const [status, setStatus] = useState<ChallengeStatus>(ChallengeStatus.active);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [imageUrl] = useState("");
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [imageUrl] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -34,10 +34,10 @@ export default function NewChallengePage() {
       end_date: endDate,
     };
 
-    const res = await fetch("/api/challenges", {
-      method: "POST",
+    const res = await fetch('/api/challenges', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(challengeData),
     });
@@ -45,9 +45,9 @@ export default function NewChallengePage() {
     setLoading(false);
 
     if (res.ok) {
-      router.push("/dashboard/challenges");
+      router.push('/dashboard/challenges');
     } else {
-      alert("Error creating challenge");
+      alert('Error creating challenge');
     }
   }
 
@@ -98,7 +98,7 @@ export default function NewChallengePage() {
           />
         </div>
 
-        {type === "scheduled" && (
+        {type === 'scheduled' && (
           <div>
             <label className="block font-medium text-gray-700">
               Start Date
@@ -150,7 +150,7 @@ export default function NewChallengePage() {
           type="submit"
           disabled={loading}
           className={`w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-lg shadow-lg transition ${
-            loading ? "opacity-60 cursor-not-allowed" : ""
+            loading ? 'opacity-60 cursor-not-allowed' : ''
           }`}
         >
           {loading && (
@@ -174,7 +174,7 @@ export default function NewChallengePage() {
               />
             </svg>
           )}
-          {loading ? "Creating..." : "Create Challenge"}
+          {loading ? 'Creating...' : 'Create Challenge'}
         </button>
       </form>
     </div>

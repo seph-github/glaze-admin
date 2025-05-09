@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Product } from "@/types/interfaces/Product";
-import { createBrowserClient } from "@supabase/ssr";
-import { Donut } from "@/types/interfaces/Donut";
-import Image from "next/image";
-import { ProductType } from "@/types/enums/ProductType";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Product } from '@/types/interfaces/Product';
+import { createBrowserClient } from '@supabase/ssr';
+import { Donut } from '@/types/interfaces/Donut';
+import Image from 'next/image';
+import { ProductType } from '@/types/enums/ProductType';
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 export default function NewProductPage() {
@@ -18,20 +18,20 @@ export default function NewProductPage() {
   const [loading, setLoading] = useState(false);
 
   const [type, setType] = useState<ProductType>(ProductType.Bundle);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [discountPrice, setDiscountPrice] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [discountPrice, setDiscountPrice] = useState('');
+  const [quantity, setQuantity] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [isDiscounted, setIsDiscounted] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const [donuts, setDonuts] = useState<Donut[]>([]);
   const [selectedDonuts, setSelectedDonuts] = useState<string[]>([]);
   const [features, setFeatures] = useState<string[]>([]);
-  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedColor, setSelectedColor] = useState('');
   const [availableFeatures, setAvailableFeatures] = useState<
     { id: string; name: string; feature_key: string; type: string }[]
   >([]);
@@ -39,9 +39,9 @@ export default function NewProductPage() {
   // Fetch donuts from DB
   useEffect(() => {
     async function fetchDonuts() {
-      const { data, error } = await supabase.from("donuts").select("*");
+      const { data, error } = await supabase.from('donuts').select('*');
       if (error) {
-        console.error("Failed to fetch donuts:", error);
+        console.error('Failed to fetch donuts:', error);
       } else {
         setDonuts(data || []);
       }
@@ -52,13 +52,13 @@ export default function NewProductPage() {
   useEffect(() => {
     async function fetchFeatures() {
       const { data, error } = await supabase
-        .from("features")
-        .select("id, name, feature_key, type")
-        .eq("is_active", true)
-        .in("type", ["purchase", "subscription"]);
+        .from('features')
+        .select('id, name, feature_key, type')
+        .eq('is_active', true)
+        .in('type', ['purchase', 'subscription']);
 
       if (error) {
-        console.error("Failed to fetch features:", error);
+        console.error('Failed to fetch features:', error);
       } else {
         setAvailableFeatures(data || []);
       }
@@ -79,31 +79,35 @@ export default function NewProductPage() {
       price_cents: Math.round(parseFloat(price) * 100),
       discount_price_cents: discountPrice
         ? Math.round(parseFloat(discountPrice) * 100)
-        : undefined,
-      quantity: quantity ? parseInt(quantity) : 0,
-      is_featured: type === "featured",
+        : null,
+      quantity: quantity ? parseInt(quantity) : null,
+      is_featured: type === 'featured',
       is_active: isActive,
       is_discounted: isDiscounted,
       donut_ids: selectedDonuts,
-      start_at: startDate,
-      end_at: endDate,
+      start_at: startDate === '' ? null : startDate,
+      end_at: endDate === '' ? null : endDate,
       color: selectedColor,
     };
 
-    const res = await fetch("/api/shop", {
-      method: "POST",
-      body: JSON.stringify({ productBody, features }),
+    const safeFeatures = Array.isArray(features) ? features : [];
+
+    const reqBody = JSON.stringify({ productBody, features: safeFeatures });
+    console.log('request body ', reqBody);
+    const res = await fetch('/api/shop', {
+      method: 'POST',
+      body: JSON.stringify({ productBody, features: safeFeatures }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
     setLoading(false);
 
     if (res.ok) {
-      router.push("/dashboard/shop");
+      router.push('/dashboard/shop');
     } else {
-      alert("Failed to create product.");
+      alert('Failed to create product.');
     }
   }
 
@@ -125,7 +129,7 @@ export default function NewProductPage() {
                 onChange={(e) => setType(e.target.value as ProductType)}
               >
                 <option value={ProductType.Featured}>Featured</option>
-                <option value={ProductType.Subscriptions}>Subscription</option>
+                <option value={ProductType.Subscription}>Subscription</option>
                 <option value={ProductType.DonutBox}>Donut Box</option>
                 <option value={ProductType.Bundle}>Bundle</option>
               </select>
@@ -139,16 +143,16 @@ export default function NewProductPage() {
               </label>
               <div className="flex flex-wrap gap-8">
                 {[
-                  "F3C623",
-                  "67AE6E",
-                  "E9A319",
-                  "547792",
-                  "C68EFD",
-                  "A08963",
-                  "4F959D",
-                  "FFB8E0",
-                  "B6FFA1",
-                  "68D2E8",
+                  'F3C623',
+                  '67AE6E',
+                  'E9A319',
+                  '547792',
+                  'C68EFD',
+                  'A08963',
+                  '4F959D',
+                  'FFB8E0',
+                  'B6FFA1',
+                  '68D2E8',
                 ].map((color) => {
                   const hex = `#${color}`;
                   const isSelected = selectedColor === hex;
@@ -161,8 +165,8 @@ export default function NewProductPage() {
                       style={{ backgroundColor: hex }}
                       className={`w-10 h-10 rounded-md border-2 transition-all duration-150 ${
                         isSelected
-                          ? "border-pink-400 scale-110"
-                          : "border-transparent"
+                          ? 'border-pink-400 scale-110'
+                          : 'border-transparent'
                       }`}
                       aria-label={`Select color ${hex}`}
                     />
@@ -170,7 +174,7 @@ export default function NewProductPage() {
                 })}
               </div>
 
-              {selectedColor === "" && (
+              {selectedColor === '' && (
                 <p className="text-sm text-red-500 mt-1">Color is required</p>
               )}
             </div>
@@ -231,7 +235,7 @@ export default function NewProductPage() {
             </div>
 
             {/* Quantity */}
-            {(type === "donut_box" || type === "bundle") && (
+            {(type === 'donut_box' || type === 'bundle') && (
               <div>
                 <label className="block font-medium text-gray-700">
                   Quantity (Donuts)
@@ -280,7 +284,7 @@ export default function NewProductPage() {
 
           {/* RIGHT COLUMN */}
           <div className="flex-1 space-y-6 bg-white p-8 rounded-xl shadow-md border">
-            {type === "featured" && (
+            {type === 'featured' && (
               <div className="flex-1 space-y-6">
                 <div className="space-y-2">
                   <label className="block font-bold text-gray-700">
@@ -323,13 +327,13 @@ export default function NewProductPage() {
                       setSelectedDonuts((prev) =>
                         prev.includes(donut.id)
                           ? prev.filter((id) => id !== donut.id)
-                          : [...prev, donut.id],
+                          : [...prev, donut.id]
                       );
                     }}
                     className={`flex flex-col items-center gap-2 p-3 border rounded-lg text-xs transition duration-200 ${
                       selectedDonuts.includes(donut.id)
-                        ? "bg-pink-100 border-pink-400 scale-105"
-                        : "hover:bg-gray-100"
+                        ? 'bg-pink-100 border-pink-400 scale-105'
+                        : 'hover:bg-gray-100'
                     }`}
                   >
                     {/* Donut Image */}
@@ -372,7 +376,7 @@ export default function NewProductPage() {
                           setFeatures((prev) =>
                             isSelected
                               ? prev.filter((f) => f !== feat.feature_key)
-                              : [...prev, feat.feature_key],
+                              : [...prev, feat.feature_key]
                           );
                         }}
                       />
@@ -392,10 +396,10 @@ export default function NewProductPage() {
           type="submit"
           disabled={loading}
           className={`w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-lg shadow-lg transition ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
+            loading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
-          {loading ? "Creating Donut..." : "Create Donut"}
+          {loading ? 'Creating Donut...' : 'Create Donut'}
         </button>
       </form>
     </div>

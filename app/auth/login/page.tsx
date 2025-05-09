@@ -1,6 +1,6 @@
-import { LoginForm } from "@/components/login-form";
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
+import { LoginForm } from '@/components/login-form';
+import { createClient } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 
 export default async function Page() {
   const supabase = createClient();
@@ -9,11 +9,11 @@ export default async function Page() {
     data: { user },
   } = await (await supabase).auth.getUser();
 
-  console.log("user " + user?.id);
+  console.log('user ' + user?.id);
 
   // 🚫 Already signed in? Redirect them
   if (user) {
-    redirect("/dashboard"); // ✅ or wherever you want
+    redirect('/dashboard'); // ✅ or wherever you want
   }
 
   return (

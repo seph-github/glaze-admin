@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Profile } from "@/types/interfaces/Profile";
-import { useState, useMemo } from "react";
-import Image from "next/image";
-import { UserRole } from "@/types/enums/UserRole";
+import { Profile } from '@/types/interfaces/Profile';
+import { useState, useMemo } from 'react';
+import Image from 'next/image';
+import { UserRole } from '@/types/enums/UserRole';
 
 export default function UserList({ profiles }: { profiles: Profile[] }) {
   const [loading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const filteredProfiles = useMemo(() => {
     const searchLower = searchTerm.toLowerCase();
@@ -15,8 +15,8 @@ export default function UserList({ profiles }: { profiles: Profile[] }) {
       .filter((profile) => profile.role === UserRole.User) // 👈 Only show users
       .filter((profile) =>
         [profile.username, profile.email, profile.full_name, profile.role].some(
-          (field) => field?.toLowerCase().includes(searchLower),
-        ),
+          (field) => field?.toLowerCase().includes(searchLower)
+        )
       );
   }, [profiles, searchTerm]);
 
@@ -69,41 +69,41 @@ export default function UserList({ profiles }: { profiles: Profile[] }) {
                     {profile.profile_image_url ? (
                       <Image
                         src={profile.profile_image_url}
-                        alt={profile.username || "User"}
+                        alt={profile.username || 'User'}
                         fill
                         className="object-cover"
                       />
                     ) : (
-                      profile.username?.charAt(0).toUpperCase() || "U"
+                      profile.username?.charAt(0).toUpperCase() || 'U'
                     )}
                   </div>
 
                   {/* Info */}
                   <div className="flex-1 min-w-0 text-center sm:text-left mb-4 sm:mb-0">
                     <h3 className="text-lg font-semibold text-gray-900 truncate">
-                      {profile.full_name || profile.username || "Unknown User"}
+                      {profile.full_name || profile.username || 'Unknown User'}
                     </h3>
                     <p className="text-sm text-gray-600 truncate">
-                      {profile.email || "No email provided"}
+                      {profile.email || 'No email provided'}
                     </p>
                     <p className="text-xs text-gray-400 mt-1">
-                      Joined{" "}
+                      Joined{' '}
                       {profile.created_at
-                        ? new Intl.DateTimeFormat("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
+                        ? new Intl.DateTimeFormat('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
                           }).format(new Date(profile.created_at))
-                        : "N/A"}
+                        : 'N/A'}
                     </p>
                     {profile.role && (
                       <span
                         className={`inline-block mt-1 px-2 py-1 text-xs font-medium rounded-full ${
-                          profile.role.toLowerCase() === "admin"
-                            ? "bg-yellow-500 text-white"
-                            : profile.role.toLowerCase() === "editor"
-                              ? "bg-purple-500 text-white"
-                              : "bg-green-500 text-white"
+                          profile.role.toLowerCase() === 'admin'
+                            ? 'bg-yellow-500 text-white'
+                            : profile.role.toLowerCase() === 'editor'
+                              ? 'bg-purple-500 text-white'
+                              : 'bg-green-500 text-white'
                         }`}
                       >
                         {profile.role}

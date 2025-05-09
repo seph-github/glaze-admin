@@ -1,17 +1,17 @@
-import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
-import { Products } from "@/types/interfaces/Products";
-import Image from "next/image";
+import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
+import { Products } from '@/types/interfaces/Products';
+import Image from 'next/image';
 
 export default async function ShopPage() {
   const supabase = await createClient();
   const { data: products } = (await supabase
-    .rpc("get_products")
+    .rpc('get_products')
     // .from('shop_products')
     // .select('*')
-    .order("created_at", { ascending: false })) as { data: Products[] };
+    .order('created_at', { ascending: false })) as { data: Products[] };
 
-  console.log("Products " + products);
+  console.log('Products ' + products);
 
   function hexToRGBA(hex: string, alpha = 1): string {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -52,9 +52,9 @@ export default async function ShopPage() {
         {products?.map((product) => (
           <div
             key={product.id}
-            className="grid grid-cols-3 gap-4 p-4 shadow rounded"
+            className="flex flex-cols-3 gap-4 p-4 shadow rounded relative"
             style={{
-              backgroundColor: hexToRGBA(product.color || "#FFFFFF", 0.4),
+              backgroundColor: hexToRGBA(product.color || '#FFFFFF', 0.4),
             }}
           >
             {/* Column 1: Donut Images (stacked vertically) */}
@@ -75,7 +75,7 @@ export default async function ShopPage() {
             </div>
 
             {/* Column 2: Product Details */}
-            <div className="space-y-1">
+            <div className="flex-1 space-y-1">
               <h2 className="text-lg font-semibold">{product.name}</h2>
               <p className="text-sm text-gray-700">{product.description}</p>
               <p className="text-sm">
@@ -88,11 +88,17 @@ export default async function ShopPage() {
             </div>
 
             {/* Column 3: Product Type */}
-            <div className="text-sm text-gray-500 capitalize flex-col flex justify-between h-full">
-              <div className="mb-2">{product.type}</div>
+            <div className="relative flex flex-col justify-start flex-1 text-sm text-gray-500 capitalize">
+              <div className="mb-2 font-bold text-pink-500">{product.type}</div>
+              {product.features?.map((feature) => (
+                <li key={feature.name} className="text-sm text-gray-700">
+                  {feature.name}
+                </li>
+              ))}
+
               <Link
                 href={`/dashboard/shop/${product.id}/edit`}
-                className="text-blue-600 text-sm hover:underline self-end"
+                className="absolute bottom-2 right-2 text-blue-600 text-sm hover:underline"
               >
                 Edit
               </Link>

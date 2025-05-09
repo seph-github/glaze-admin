@@ -1,13 +1,13 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 export default async function DonutBoxesList() {
   const supabase = await createClient();
   const { data: boxes } = await supabase
-    .from("shop_products")
-    .select("*")
-    .eq("type", "donut_box")
-    .eq("is_active", true)
-    .order("created_at", { ascending: true });
+    .from('shop_products')
+    .select('*')
+    .eq('type', 'donut_box')
+    .eq('is_active', true)
+    .order('created_at', { ascending: true });
 
   if (!boxes?.length) return null;
 

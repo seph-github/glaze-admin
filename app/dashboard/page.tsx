@@ -1,8 +1,8 @@
-import AnalyticsSummary from "@/components/Dashboard/AnalyticsSummary";
-import FlaggedContent from "@/components/Dashboard/FlaggedContent";
-import Leaderboard from "@/components/Dashboard/Leaderboard";
-import QuickActions from "@/components/Dashboard/QuickAction";
-import UpcomingChallenges from "@/components/Dashboard/UpcomingChallenges";
+import AnalyticsSummary from '@/components/Dashboard/AnalyticsSummary';
+import FlaggedContent from '@/components/Dashboard/FlaggedContent';
+import Leaderboard from '@/components/Dashboard/Leaderboard';
+import QuickActions from '@/components/Dashboard/QuickAction';
+import UpcomingChallenges from '@/components/Dashboard/UpcomingChallenges';
 
 export default async function Page() {
   return (

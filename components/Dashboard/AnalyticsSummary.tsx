@@ -1,13 +1,13 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 export default async function AnalyticsSummary() {
   const supabase = await createClient();
-  const { data: profiles } = await supabase.from("profiles").select();
-  const { data: videos } = await supabase.from("videos").select("*");
+  const { data: profiles } = await supabase.from('profiles').select();
+  const { data: videos } = await supabase.from('videos').select('*');
   const { data: challenges } = await supabase
-    .from("challenges")
+    .from('challenges')
     .select()
-    .eq("status", "active");
+    .eq('status', 'active');
 
   return (
     <div className="p-4 bg-white shadow rounded-md grid grid-cols-2 md:grid-cols-4 gap-4">

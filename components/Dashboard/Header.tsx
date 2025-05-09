@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { Button } from "../ui/button";
-import { Menu } from "lucide-react";
-import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
-import AvatarDropdown from "./AvatarDropdown";
+import { Button } from '../ui/button';
+import { Menu } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import AvatarDropdown from './AvatarDropdown';
 
 export default function DashboardHeader() {
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -18,9 +18,9 @@ export default function DashboardHeader() {
 
       if (user) {
         const { data: profile, error } = await supabase
-          .from("profiles")
-          .select("profile_image_url")
-          .eq("id", user.id)
+          .from('profiles')
+          .select('profile_image_url')
+          .eq('id', user.id)
           .single();
 
         if (!error && profile?.profile_image_url) {

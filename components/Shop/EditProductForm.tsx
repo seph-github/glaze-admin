@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { ProductType } from "@/types/enums/ProductType";
-import { Donut } from "@/types/interfaces/Donut";
-import { Product } from "@/types/interfaces/Product";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { createBrowserClient } from "@supabase/ssr";
-import toast from "react-hot-toast";
+import { ProductType } from '@/types/enums/ProductType';
+import { Donut } from '@/types/interfaces/Donut';
+import { Product } from '@/types/interfaces/Product';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { createBrowserClient } from '@supabase/ssr';
+import toast from 'react-hot-toast';
 
 const supabase = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
 export default function EditProductForm({ product }: { product: Product }) {
@@ -20,23 +20,23 @@ export default function EditProductForm({ product }: { product: Product }) {
   const [deleting, setDeleting] = useState(false);
 
   const [name, setName] = useState(product.name);
-  const [description, setDescription] = useState(product.description || "");
+  const [description, setDescription] = useState(product.description || '');
   const [type, setType] = useState<ProductType>(product.type);
   const [price, setPrice] = useState((product.price_cents / 100).toString());
   const [discountPrice, setDiscountPrice] = useState(
     product.discount_price_cents
       ? (product.discount_price_cents / 100).toString()
-      : "",
+      : ''
   );
-  const [quantity, setQuantity] = useState(product.quantity?.toString() || "0");
+  const [quantity, setQuantity] = useState(product.quantity?.toString() || '0');
   const [isActive, setIsActive] = useState(product.is_active ?? true);
   const [isDiscounted, setIsDiscounted] = useState(
-    product.is_discounted ?? false,
+    product.is_discounted ?? false
   );
   const [features, setFeatures] = useState<string[]>([]);
   const [donuts, setDonuts] = useState<Donut[]>([]);
   const [selectedDonuts, setSelectedDonuts] = useState<string[]>(
-    product.donut_ids ?? [],
+    product.donut_ids ?? []
   );
   const [startDate, setStartDate] = useState(product.start_at || null);
   const [endDate, setEndDate] = useState(product.end_at || null);
@@ -47,9 +47,9 @@ export default function EditProductForm({ product }: { product: Product }) {
 
   useEffect(() => {
     async function fetchDonuts() {
-      const { data, error } = await supabase.from("donuts").select("*");
+      const { data, error } = await supabase.from('donuts').select('*');
       if (error) {
-        console.error("Failed to fetch donuts:", error);
+        console.error('Failed to fetch donuts:', error);
       } else {
         setDonuts(data || []);
       }
@@ -60,13 +60,13 @@ export default function EditProductForm({ product }: { product: Product }) {
   useEffect(() => {
     async function fetchFeatures() {
       const { data, error } = await supabase
-        .from("features")
-        .select("id, name, feature_key, type")
-        .eq("is_active", true)
-        .in("type", ["purchase", "subscription"]);
+        .from('features')
+        .select('id, name, feature_key, type')
+        .eq('is_active', true)
+        .in('type', ['purchase', 'subscription']);
 
       if (error) {
-        console.error("Failed to fetch features:", error);
+        console.error('Failed to fetch features:', error);
       } else {
         setAvailableFeatures(data || []);
       }
@@ -78,12 +78,12 @@ export default function EditProductForm({ product }: { product: Product }) {
   useEffect(() => {
     async function fetchLinkedFeatures() {
       const { data, error } = await supabase
-        .from("shop_product_features")
-        .select("feature_id, features:feature_id (feature_key)")
-        .eq("shop_product_id", product.id);
+        .from('shop_product_features')
+        .select('feature_id, features:feature_id (feature_key)')
+        .eq('shop_product_id', product.id);
 
       if (error) {
-        console.error("Failed to fetch linked features:", error);
+        console.error('Failed to fetch linked features:', error);
       } else {
         const featureKeys =
           data
@@ -106,12 +106,12 @@ export default function EditProductForm({ product }: { product: Product }) {
     e.preventDefault();
 
     if (!selectedColor) {
-      toast.error("Please select a product color.");
+      toast.error('Please select a product color.');
       return;
     }
 
     if (selectedDonuts.length === 0) {
-      toast.error("Please select at least one donut.");
+      toast.error('Please select at least one donut.');
       return;
     }
 
@@ -135,31 +135,31 @@ export default function EditProductForm({ product }: { product: Product }) {
     };
 
     const res = await fetch(`/api/shop/${product.id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(productBody),
     });
 
     setLoading(false);
     if (res.ok) {
-      router.push("/dashboard/shop");
+      router.push('/dashboard/shop');
     } else {
-      alert("Update failed.");
+      alert('Update failed.');
     }
   }
 
   async function handleDelete() {
-    if (!confirm("Are you sure you want to delete this product?")) return;
+    if (!confirm('Are you sure you want to delete this product?')) return;
     setDeleting(true);
 
     const res = await fetch(`/api/shop/${product.id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     });
 
     setDeleting(false);
     if (res.ok) {
-      router.push("/dashboard/shop");
+      router.push('/dashboard/shop');
     } else {
-      alert("Delete failed.");
+      alert('Delete failed.');
     }
   }
 
@@ -195,16 +195,16 @@ export default function EditProductForm({ product }: { product: Product }) {
               </label>
               <div className="flex flex-wrap gap-8">
                 {[
-                  "F3C623",
-                  "67AE6E",
-                  "E9A319",
-                  "547792",
-                  "C68EFD",
-                  "A08963",
-                  "4F959D",
-                  "FFB8E0",
-                  "B6FFA1",
-                  "68D2E8",
+                  'F3C623',
+                  '67AE6E',
+                  'E9A319',
+                  '547792',
+                  'C68EFD',
+                  'A08963',
+                  '4F959D',
+                  'FFB8E0',
+                  'B6FFA1',
+                  '68D2E8',
                 ].map((color) => {
                   const hex = `#${color}`;
                   const isSelected = selectedColor === hex;
@@ -217,8 +217,8 @@ export default function EditProductForm({ product }: { product: Product }) {
                       style={{ backgroundColor: hex }}
                       className={`w-10 h-10 rounded-md border-2 transition-all duration-150 ${
                         isSelected
-                          ? "border-pink-400 scale-110"
-                          : "border-transparent"
+                          ? 'border-pink-400 scale-110'
+                          : 'border-transparent'
                       }`}
                       aria-label={`Select color ${hex}`}
                     />
@@ -226,7 +226,7 @@ export default function EditProductForm({ product }: { product: Product }) {
                 })}
               </div>
 
-              {selectedColor === "" && (
+              {selectedColor === '' && (
                 <p className="text-sm text-red-500 mt-1">Color is required</p>
               )}
             </div>
@@ -287,7 +287,7 @@ export default function EditProductForm({ product }: { product: Product }) {
             </div>
 
             {/* Quantity */}
-            {(type === "donut_box" || type === "bundle") && (
+            {(type === 'donut_box' || type === 'bundle') && (
               <div>
                 <label className="block font-medium text-gray-700">
                   Quantity (Donuts)
@@ -336,7 +336,7 @@ export default function EditProductForm({ product }: { product: Product }) {
 
           {/* RIGHT COLUMN */}
           <div className="flex-1 space-y-6 bg-white p-8 rounded-xl shadow-md border">
-            {type === "featured" && (
+            {type === 'featured' && (
               <div className="flex-1 space-y-6">
                 <div className="space-y-2">
                   <label className="block font-bold text-gray-700">
@@ -345,7 +345,7 @@ export default function EditProductForm({ product }: { product: Product }) {
                   <input
                     type="datetime-local"
                     className="w-full mt-1 p-2 border rounded"
-                    value={startDate ?? ""}
+                    value={startDate ?? ''}
                     onChange={(e) => setStartDate(e.target.value)}
                     required
                   />
@@ -357,7 +357,7 @@ export default function EditProductForm({ product }: { product: Product }) {
                   <input
                     type="datetime-local"
                     className="w-full mt-1 p-2 border rounded"
-                    value={endDate ?? ""}
+                    value={endDate ?? ''}
                     onChange={(e) => setEndDate(e.target.value)}
                     required
                   />
@@ -379,13 +379,13 @@ export default function EditProductForm({ product }: { product: Product }) {
                       setSelectedDonuts((prev = []) =>
                         prev.includes(donut.id)
                           ? prev.filter((id) => id !== donut.id)
-                          : [...prev, donut.id],
+                          : [...prev, donut.id]
                       );
                     }}
                     className={`flex flex-col items-center gap-2 p-3 border rounded-lg text-xs transition duration-200 ${
                       selectedDonuts?.includes(donut.id)
-                        ? "bg-pink-100 border-pink-400 scale-105"
-                        : "hover:bg-gray-100"
+                        ? 'bg-pink-100 border-pink-400 scale-105'
+                        : 'hover:bg-gray-100'
                     }`}
                   >
                     {/* Donut Image */}
@@ -428,7 +428,7 @@ export default function EditProductForm({ product }: { product: Product }) {
                           setFeatures((prev) =>
                             isSelected
                               ? prev.filter((f) => f !== feat.feature_key)
-                              : [...prev, feat.feature_key],
+                              : [...prev, feat.feature_key]
                           );
                         }}
                       />
@@ -447,20 +447,20 @@ export default function EditProductForm({ product }: { product: Product }) {
           type="submit"
           disabled={loading}
           className={`w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-lg shadow-lg transition ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
+            loading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
-          {loading ? "Saving..." : "Save"}
+          {loading ? 'Saving...' : 'Save'}
         </button>
         <button
           type="button"
           onClick={handleDelete}
           disabled={deleting}
           className={`w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-lg transition ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
+            loading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
-          {deleting ? "Deleting..." : "Delete"}
+          {deleting ? 'Deleting...' : 'Delete'}
         </button>
       </form>
     </div>

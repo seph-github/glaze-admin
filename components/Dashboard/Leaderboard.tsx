@@ -1,12 +1,12 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from '@/lib/supabase/server';
 
 export default async function Leaderboard() {
   const supabase = await createClient();
 
   const { data: users } = await supabase
-    .from("users")
-    .select("id, username, glaze_count")
-    .order("glaze_count", { ascending: false })
+    .from('users')
+    .select('id, username, glaze_count')
+    .order('glaze_count', { ascending: false })
     .limit(5);
 
   return (
