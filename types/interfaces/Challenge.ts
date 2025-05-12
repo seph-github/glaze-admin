@@ -11,4 +11,7 @@ export interface Challenge {
   start_date: string | null;
   end_date: string | null;
   image_url: string;
+  challenge_video_id: string;
+  category: string;
+  tags: string[] | null;
 }

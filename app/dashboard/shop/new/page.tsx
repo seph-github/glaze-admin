@@ -3,15 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Product } from '@/types/interfaces/Product';
-import { createBrowserClient } from '@supabase/ssr';
 import { Donut } from '@/types/interfaces/Donut';
 import Image from 'next/image';
 import { ProductType } from '@/types/enums/ProductType';
-
-const supabase = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 export default function NewProductPage() {
   const router = useRouter();
@@ -39,9 +33,10 @@ export default function NewProductPage() {
   // Fetch donuts from DB
   useEffect(() => {
     async function fetchDonuts() {
-      const { data, error } = await supabase.from('donuts').select('*');
-      if (error) {
-        console.error('Failed to fetch donuts:', error);
+      const res = await fetch('/api/donuts');
+      const data = await res.json();
+      if (data === null) {
+        console.error('Failed to fetch donuts:');
       } else {
         setDonuts(data || []);
       }
@@ -51,14 +46,11 @@ export default function NewProductPage() {
 
   useEffect(() => {
     async function fetchFeatures() {
-      const { data, error } = await supabase
-        .from('features')
-        .select('id, name, feature_key, type')
-        .eq('is_active', true)
-        .in('type', ['purchase', 'subscription']);
+      const res = await fetch('/api/features');
+      const data = await res.json();
 
-      if (error) {
-        console.error('Failed to fetch features:', error);
+      if (data === null) {
+        console.error('Failed to fetch features:');
       } else {
         setAvailableFeatures(data || []);
       }
