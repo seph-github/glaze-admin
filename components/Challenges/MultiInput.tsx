@@ -2,30 +2,32 @@
 
 import { useState } from 'react';
 
-export default function TagInput({
-  tags,
-  setTags,
+export default function MultiInput({
+  label,
+  values,
+  setValues,
 }: {
-  tags: string[];
-  setTags: (tags: string[]) => void;
+  label: string;
+  values: string[];
+  setValues: (tags: string[]) => void;
 }) {
   const [input, setInput] = useState('');
 
-  const handleAddTag = () => {
-    const newTag = input.trim();
-    if (newTag && !tags.includes(newTag)) {
-      setTags([...tags, newTag]);
+  const handleAddValue = () => {
+    const newValue = input.trim();
+    if (newValue && !values.includes(newValue)) {
+      setValues([...values, newValue]);
       setInput('');
     }
   };
 
-  const handleRemoveTag = (tagToRemove: string) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove));
+  const handleRemoveValue = (valueToRemove: string) => {
+    setValues(values.filter((value) => value !== valueToRemove));
   };
 
   return (
     <div className="space-y-2">
-      <label className="block font-medium text-gray-700">Tags</label>
+      <label className="block font-medium text-gray-700">{label}</label>
 
       <div className="flex gap-2">
         <input
@@ -37,24 +39,24 @@ export default function TagInput({
         />
         <button
           type="button"
-          onClick={handleAddTag}
+          onClick={handleAddValue}
           className="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700"
         >
           Add
         </button>
       </div>
 
-      {/* Display Tags */}
+      {/* Display Value */}
       <div className="flex flex-wrap gap-2">
-        {tags.map((tag, index) => (
+        {values.map((value, index) => (
           <span
             key={index}
             className="bg-pink-100 text-pink-800 px-3 py-1 rounded-full flex items-center gap-2"
           >
-            {tag}
+            {value}
             <button
               type="button"
-              onClick={() => handleRemoveTag(tag)}
+              onClick={() => handleRemoveValue(value)}
               className="text-pink-600 hover:text-pink-800"
             >
               &times;

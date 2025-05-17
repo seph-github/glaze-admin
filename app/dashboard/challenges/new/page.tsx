@@ -7,9 +7,11 @@ import { Challenge } from '@/types/interfaces/Challenge';
 import VideoSelectionModal from '@/components/Challenges/VideoSelectionModal';
 import { VideoContent } from '@/types/interfaces/VideoContent';
 import { Category } from '@/types/interfaces/Categories';
-import TagInput from '@/components/Challenges/TagInput';
+import MultiInput from '@/components/Challenges/MultiInput';
+import { useRouter } from 'next/navigation';
 
 export default function NewChallengePage() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const [type, setType] = useState<ChallengeType>(ChallengeType.scheduled);
@@ -25,6 +27,7 @@ export default function NewChallengePage() {
   const [selectedVideo, setSelectedVideo] = useState<VideoContent | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [rules, setRules] = useState<string[]>([]);
 
   const handleVideoSelect = (video: VideoContent) => {
     setSelectedVideo(video);
@@ -46,25 +49,26 @@ export default function NewChallengePage() {
       challenge_video_id: selectedVideo!.id,
       category: selectedCategory,
       tags,
+      rules,
     };
 
     console.log(challengeData);
 
-    // const res = await fetch('/api/challenges', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(challengeData),
-    // });
+    const res = await fetch('/api/challenges', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(challengeData),
+    });
 
     setLoading(false);
 
-    // if (res.ok) {
-    //   router.push('/dashboard/challenges');
-    // } else {
-    //   alert('Error creating challenge');
-    // }
+    if (res.ok) {
+      router.push('/dashboard/challenges');
+    } else {
+      alert('Error creating challenge');
+    }
   }
 
   useEffect(() => {
@@ -79,16 +83,6 @@ export default function NewChallengePage() {
 
     fetchCategories();
   }, []);
-
-  // useEffect(() => {
-  //   async function fetchVideos() {
-  //     const res = await fetch('/api/videos');
-  //     const data = await res.json();
-  //     setVideos(data || []);
-  //   }
-
-  //   fetchVideos();
-  // }, []);
 
   return (
     <div className="w-full max-w-7xl mx-auto bg-white shadow-md rounded-lg p-8 space-y-6">
@@ -137,7 +131,11 @@ export default function NewChallengePage() {
           )}
         </div>
 
-        <TagInput tags={tags} setTags={setTags} />
+        {/* -- Tags -- */}
+        <MultiInput label={'Tags'} values={tags} setValues={setTags} />
+
+        {/* -- Rules -- */}
+        <MultiInput label={'Rules'} values={rules} setValues={setRules} />
 
         <div className="space-y-2">
           <label className="block font-medium text-gray-700">
@@ -150,7 +148,7 @@ export default function NewChallengePage() {
           >
             <option value="">-- Select a Category --</option>
             {categories?.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category.id} value={category.name}>
                 {category.name}
               </option>
             ))}
@@ -247,31 +245,10 @@ export default function NewChallengePage() {
           type="submit"
           disabled={loading}
           className={`w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-lg shadow-lg transition ${
-            loading ? 'opacity-60 cursor-not-allowed' : ''
+            loading ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >
-          {loading && (
-            <svg
-              className="w-5 h-5 animate-spin"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="white"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="white"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-              />
-            </svg>
-          )}
-          {loading ? 'Creating...' : 'Create Challenge'}
+          {loading ? 'Creating Challenge...' : 'Create Challenge'}
         </button>
       </form>
     </div>
